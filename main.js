@@ -51,6 +51,7 @@ const cardButtons = document.querySelectorAll('.card__button');
 const finalPage = document.querySelector(".final-page");
 const finalPageBackButton = finalPage.querySelector(".final-page__back-btn");
 const finalPageExitButton = finalPage.querySelector(".final-page__button_back");
+const loader = document.querySelector(".loader");
 
 cardButtons.forEach((cardButton) => {
   cardButton.addEventListener("click", () => {
@@ -65,13 +66,27 @@ snackbar.addEventListener("click", (evt) => {
     snackbar.classList.remove('snackbar_active');
   }
 });
+const audio = new Audio();
+audio.preload = 'auto';
+audio.src = './assets/audio/success-appstore.mp3';
 snackbarSend.addEventListener("click", () => {
   vibro();
+  loader.classList.add('loader_active');
+  snackbarSend.style.opacity = 0.5;
+  snackbarSend.style.pointerEvents = 'none';
+  snackbarSend.disabled = true;
   setTimeout(() => {
-    snackbar.classList.remove('snackbar_active');
-  }, 150);
-  main.classList.add("main_disable");
-  finalPage.classList.add("final-page_active");
+    audio.play();
+    snackbarSend.style.opacity = 1;
+    snackbarSend.style.pointerEvents = 'all';
+    snackbarSend.disabled = false;
+    loader.classList.remove('loader_active');
+    setTimeout(() => {
+      snackbar.classList.remove('snackbar_active');
+    }, 150);
+    main.classList.add("main_disable");
+    finalPage.classList.add("final-page_active");
+  }, 2000)
 });
 finalPageBackButton.addEventListener("click", () => {
   finalPage.classList.remove("final-page_active");
