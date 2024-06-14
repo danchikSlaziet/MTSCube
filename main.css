@@ -213,7 +213,7 @@ a,a:hover{
 }
 
 .main__summ {
-  position: fixed;
+  position: absolute;
   right: 19px;
   top: 15px;
 }
