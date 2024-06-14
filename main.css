@@ -215,7 +215,7 @@ a,a:hover{
 .main__summ {
   position: fixed;
   right: 19px;
-  bottom: 36px;
+  top: 15px;
 }
 .summ {
   display: flex;
