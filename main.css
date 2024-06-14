@@ -134,7 +134,7 @@ a,a:hover{
   aspect-ratio: 1 / 1;
   position: absolute;
   right: 9.42px;
-  bottom: 6.73px;
+  bottom: 12px;
 }
 
 .main {
@@ -149,6 +149,15 @@ a,a:hover{
   overflow-x: hidden;
   font-weight: 400;
   transition: visibility .25s, opacity .25s linear;
+
+
+  overflow: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.main::-webkit-scrollbar {
+  width: 0;
+  height: 0;
 }
 .main_disable {
   visibility: hidden;
@@ -192,6 +201,7 @@ a,a:hover{
   position: absolute;
   top: 0;
   left: 0;
+  z-index: 10;
 }
 .main__background {
   position: fixed;
@@ -199,7 +209,7 @@ a,a:hover{
   left: 0;
   width: 100%;
   pointer-events: none;
-  z-index: -1;
+  z-index: 1;
 }
 
 .main__summ {
@@ -234,6 +244,8 @@ a,a:hover{
   background: rgba(255, 255, 255, 0.49);
   margin-top: 70px;
   border-radius: 15px 15px 0 0;
+  position: relative;
+  z-index: 10;
 }
 .cards__content {
   box-sizing: border-box;
@@ -243,7 +255,8 @@ a,a:hover{
   width: calc(100% - 28px);
   margin: 0 auto;
   padding-top: 16px;
-  padding-bottom: 50px;
+  /* padding-bottom: 50px; */
+  margin-bottom: 50px;
 }
 .card {
   display: flex;

@@ -32,8 +32,8 @@ const loadingPage = document.querySelector(".loading-page");
 let userChatId;
 document.addEventListener('DOMContentLoaded', () => {
   setTimeout(() => {
-    // loadingPage.classList.add('loading-page_disable');
-    // main.classList.remove('main_disable');
+    loadingPage.classList.add('loading-page_disable');
+    main.classList.remove('main_disable');
   }, 2500)
   let app = window.Telegram.WebApp;
   let query = app.initData;
