@@ -198,10 +198,7 @@ a,a:hover{
 }
 
 .main__logo {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 10;
+  margin-top: -3px;
 }
 .main__background {
   position: fixed;
@@ -211,23 +208,35 @@ a,a:hover{
   pointer-events: none;
   z-index: 1;
 }
-
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  z-index: 1000;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(234, 238, 242, 1);
+  padding: 0 14px 19px 0;
+}
 .main__summ {
-  position: absolute;
+  /* position: absolute;
   right: 19px;
-  top: 15px;
+  top: 15px; */
 }
 .summ {
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0px 4px 10.9px 0px rgba(0, 0, 0, 0.45);
   background: rgba(255, 0, 50, 1);
   border-radius: 99px;
   box-sizing: border-box;
   padding: 9px 11px;
   gap: 7px;
   z-index: 100;
+  align-self: flex-start;
+  margin-top: 15px;
 }
 .summ__text {
   color: #FFF;
