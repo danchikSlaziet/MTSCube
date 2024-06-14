@@ -16,8 +16,25 @@ function parseQuery(queryString) {
   }
   return query;
 }
+
+const main = document.querySelector('.main');
+const snackbar = document.querySelector('.snackbar');
+const snackbarReject = snackbar.querySelector(".snackbar__button_reject");
+const snackbarSend = snackbar.querySelector(".snackbar__button_confirm");
+const snackbarClose = snackbar.querySelector(".snackbar__close-img");
+const cardButtons = document.querySelectorAll('.card__button');
+const finalPage = document.querySelector(".final-page");
+const finalPageBackButton = finalPage.querySelector(".final-page__back-btn");
+const finalPageExitButton = finalPage.querySelector(".final-page__button_back");
+const loader = document.querySelector(".loader");
+const loadingPage = document.querySelector(".loading-page");
+
 let userChatId;
 document.addEventListener('DOMContentLoaded', () => {
+  setTimeout(() => {
+    // loadingPage.classList.add('loading-page_disable');
+    // main.classList.remove('main_disable');
+  }, 2500)
   let app = window.Telegram.WebApp;
   let query = app.initData;
   let user_data_str = parseQuery(query).user;
@@ -43,15 +60,6 @@ function vibro() {
   }
 }
 
-const main = document.querySelector('.main');
-const snackbar = document.querySelector('.snackbar');
-const snackbarReject = snackbar.querySelector(".snackbar__button_reject");
-const snackbarSend = snackbar.querySelector(".snackbar__button_confirm");
-const cardButtons = document.querySelectorAll('.card__button');
-const finalPage = document.querySelector(".final-page");
-const finalPageBackButton = finalPage.querySelector(".final-page__back-btn");
-const finalPageExitButton = finalPage.querySelector(".final-page__button_back");
-const loader = document.querySelector(".loader");
 
 cardButtons.forEach((cardButton) => {
   cardButton.addEventListener("click", () => {
@@ -66,6 +74,9 @@ snackbar.addEventListener("click", (evt) => {
     snackbar.classList.remove('snackbar_active');
   }
 });
+snackbarClose.addEventListener('click', () => {
+  snackbar.classList.remove('snackbar_active');
+})
 const audio = new Audio();
 audio.preload = 'auto';
 audio.src = './assets/audio/success-appstore.mp3';
