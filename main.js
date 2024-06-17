@@ -1,3 +1,77 @@
+class Api {
+  constructor({firstUrl, secondUrl, thirdUrl}) {
+    this._firstUrl = firstUrl;
+    this._secondUrl = secondUrl;
+    this._thirdUrl = thirdUrl;
+  }
+
+  _getFetch(url, options) {
+    return fetch(url, options)
+      .then(res => {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject(`Ошибка ${res.status}`)
+      });
+  }
+
+  getUserInfo(id) {
+    const url = this._firstUrl + `${id}`;
+    const options = {
+      method: 'GET',
+      mode: 'cors',
+      cache: 'no-cache',
+      credentials: 'same-origin',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      redirect: 'follow',
+      referrerPolicy: 'no-referrer',
+    }
+    return this._getFetch(url, options);
+  }
+
+  getProducts() {
+    const url = this._secondUrl;
+    const options = {
+      method: 'GET',
+      mode: 'cors',
+      cache: 'no-cache',
+      credentials: 'same-origin',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      redirect: 'follow',
+      referrerPolicy: 'no-referrer',
+    }
+    return this._getFetch(url, options);
+  }
+
+  postProduct(data) {
+    const url = this._thirdUrl;
+    const options = {
+      method: 'POST',
+      mode: 'cors',
+      cache: 'no-cache',
+      credentials: 'same-origin',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      redirect: 'follow',
+      referrerPolicy: 'no-referrer',
+      body: JSON.stringify(data),
+    }
+    return this._getFetch(url, options);
+  }
+}
+
+const api = new Api({
+  firstUrl: 'http://152.89.218.81:7128/api/get_user_info/',
+  secondUrl: 'http://152.89.218.81:7128/api/get_product_list/',
+  thirdUrl: 'http://152.89.218.81:7128/api/book_product/',
+});
+
+
 // отмена закрытия по свайпу (если скролла нет, то работает отлично, когда скролл есть - закрывается при проведении буквой Г, например слева направо и вниз)
 const overflow = 100;
 document.body.style.overflowY = 'hidden';
@@ -137,6 +211,37 @@ snackbarSend.addEventListener("click", () => {
         }, 150);
         main.classList.add("main_disable");
         finalPage.classList.add("final-page_active");
+        api.getUserInfo(userChatId)
+          .then((userInfo) => {
+            console.log(userInfo);
+            summCount.textContent = userInfo.point;
+            api.getProducts()
+              .then((data) => {
+                console.log(data);
+                cardsContainer.innerHTML = '';
+                data.forEach((card) => {
+                  cardsContainer.innerHTML += `
+                    <div class="cards__card card">
+                      <img src="./assets/images/card-img.png" class="card__img" alt="">
+                      <p class="card__text">
+                        ${card.description}
+                      </p>
+                      <div class="card__price-block">
+                        <p class="card__price-count">
+                          ${card.cost}
+                        </p>
+                        <img class="card__price-img" src="./assets/images/card-count-img.svg" alt="">
+                      </div>
+                      <button data-product-id=${card.id} type="button" class=${userInfo.point < card.cost ? 'card__button card__button_disable' : 'card__button' }>
+                        Получить
+                      </button>
+                    </div>
+                  `;
+                })
+              })
+              .catch(err => console.log(err));
+    })
+    .catch(err => console.log(err));
       }
       else if (data.status === 'Not enough points') {
         snackbarSend.textContent = 'Не хватает баллов';
