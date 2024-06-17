@@ -196,7 +196,6 @@ a,a:hover{
   line-height: 22.46px;
   text-align: left;
 }
-
 .main__logo {
   margin-top: -3px;
 }
@@ -328,7 +327,10 @@ a,a:hover{
   transform: translateY(-2px);
   opacity: .5;
 }
-
+.card__button_disable {
+  pointer-events: none;
+  opacity: .3;
+}
 .snackbar {
   position: fixed;
   left: 0;

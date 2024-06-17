@@ -18,6 +18,7 @@ function parseQuery(queryString) {
 }
 
 const main = document.querySelector('.main');
+const cardsContainer = main.querySelector(".cards__content");
 const snackbar = document.querySelector('.snackbar');
 const snackbarReject = snackbar.querySelector(".snackbar__button_reject");
 const snackbarSend = snackbar.querySelector(".snackbar__button_confirm");
@@ -28,6 +29,7 @@ const finalPageBackButton = finalPage.querySelector(".final-page__back-btn");
 const finalPageExitButton = finalPage.querySelector(".final-page__button_back");
 const loader = document.querySelector(".loader");
 const loadingPage = document.querySelector(".loading-page");
+const summCount = document.querySelector(".summ__text");
 
 let userChatId;
 document.addEventListener('DOMContentLoaded', () => {
@@ -42,6 +44,37 @@ document.addEventListener('DOMContentLoaded', () => {
   app.expand();
   app.ready();
   userChatId = user_data["id"];
+  api.getUserInfo(userChatId)
+    .then((userInfo) => {
+      console.log(userInfo);
+      summCount.textContent = userInfo.point;
+      api.getProducts()
+        .then((data) => {
+          console.log(data);
+          cardsContainer.innerHTML = '';
+          data.forEach((card) => {
+            cardsContainer.innerHTML += `
+              <div class="cards__card card">
+                <img src="./assets/images/card-img.png" class="card__img" alt="">
+                <p class="card__text">
+                  ${card.description}
+                </p>
+                <div class="card__price-block">
+                  <p class="card__price-count">
+                    ${card.cost}
+                  </p>
+                  <img class="card__price-img" src="./assets/images/card-count-img.svg" alt="">
+                </div>
+                <button data-product-id=${card.id} type="button" class=${userInfo.point < card.cost ? 'card__button card__button_disable' : 'card__button' }>
+                  Получить
+                </button>
+              </div>
+            `;
+          })
+        })
+        .catch(err => console.log(err));
+    })
+    .catch(err => console.log(err));
 });
 
 function vibro() {
@@ -60,10 +93,11 @@ function vibro() {
   }
 }
 
-
+let productId;
 cardButtons.forEach((cardButton) => {
   cardButton.addEventListener("click", () => {
     snackbar.classList.add("snackbar_active");
+    productId = cardButton.dataset.productId;
   })
 });
 snackbarReject.addEventListener("click", () => {
@@ -86,18 +120,56 @@ snackbarSend.addEventListener("click", () => {
   snackbarSend.style.opacity = 0.5;
   snackbarSend.style.pointerEvents = 'none';
   snackbarSend.disabled = true;
-  setTimeout(() => {
-    audio.play();
-    snackbarSend.style.opacity = 1;
-    snackbarSend.style.pointerEvents = 'all';
-    snackbarSend.disabled = false;
-    loader.classList.remove('loader_active');
-    setTimeout(() => {
-      snackbar.classList.remove('snackbar_active');
-    }, 150);
-    main.classList.add("main_disable");
-    finalPage.classList.add("final-page_active");
-  }, 2000)
+  api.postProduct({
+    "user_id_tg": userChatId,
+    "product_id": productId
+  })
+    .then((data) => {
+      console.log(data);
+      if (data.status === 'Product reserved successfully') {
+        audio.play();
+        snackbarSend.style.opacity = 1;
+        snackbarSend.style.pointerEvents = 'all';
+        snackbarSend.disabled = false;
+        loader.classList.remove('loader_active');
+        setTimeout(() => {
+          snackbar.classList.remove('snackbar_active');
+        }, 150);
+        main.classList.add("main_disable");
+        finalPage.classList.add("final-page_active");
+      }
+      else if (data.status === 'Not enough points') {
+        snackbarSend.textContent = 'Не хватает баллов';
+        loader.classList.remove('loader_active');
+        setTimeout(() => {
+          snackbarSend.style.opacity = 1;
+          snackbarSend.style.pointerEvents = 'all';
+          snackbarSend.disabled = false;
+          snackbarSend.textContent = 'Подтвердить';
+        }, 5000);
+      }
+      else if (data.status === 'Product out of stock') {
+        snackbarSend.textContent = 'Этот товар раскуплен';
+        loader.classList.remove('loader_active');
+        setTimeout(() => {
+          snackbarSend.style.opacity = 1;
+          snackbarSend.style.pointerEvents = 'all';
+          snackbarSend.disabled = false;
+          snackbarSend.textContent = 'Подтвердить';
+        }, 5000);
+      }
+      else {
+        snackbarSend.textContent = 'Что-то пошло не так :(';
+        loader.classList.remove('loader_active');
+        setTimeout(() => {
+          snackbarSend.style.opacity = 1;
+          snackbarSend.style.pointerEvents = 'all';
+          snackbarSend.disabled = false;
+          snackbarSend.textContent = 'Подтвердить';
+        }, 5000);
+      }
+    })
+    .catch(err => console.log(err));
 });
 finalPageBackButton.addEventListener("click", () => {
   finalPage.classList.remove("final-page_active");
