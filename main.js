@@ -16,7 +16,7 @@ class Api {
   }
 
   getUserInfo(id) {
-    const url = this._firstUrl + `${id}`;
+    const url = this._firstUrl + `${id}/`;
     const options = {
       method: 'GET',
       mode: 'cors',
@@ -32,7 +32,7 @@ class Api {
   }
 
   getProducts() {
-    const url = this._secondUrl;
+    const url = this._secondUrl + '/';
     const options = {
       method: 'GET',
       mode: 'cors',
@@ -118,7 +118,7 @@ document.addEventListener('DOMContentLoaded', () => {
   app.expand();
   app.ready();
   userChatId = user_data["id"];
-  api.getUserInfo(userChatId)
+  api.getUserInfo(192105252)
     .then((userInfo) => {
       console.log(userInfo);
       summCount.textContent = userInfo.point;
@@ -195,7 +195,7 @@ snackbarSend.addEventListener("click", () => {
   snackbarSend.style.pointerEvents = 'none';
   snackbarSend.disabled = true;
   api.postProduct({
-    "user_id_tg": userChatId,
+    "user_id_tg": 192105252,
     "product_id": productId
   })
     .then((data) => {
@@ -211,7 +211,7 @@ snackbarSend.addEventListener("click", () => {
         }, 150);
         main.classList.add("main_disable");
         finalPage.classList.add("final-page_active");
-        api.getUserInfo(userChatId)
+        api.getUserInfo(192105252)
           .then((userInfo) => {
             console.log(userInfo);
             summCount.textContent = userInfo.point;
