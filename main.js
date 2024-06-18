@@ -98,7 +98,6 @@ const snackbar = document.querySelector('.snackbar');
 const snackbarReject = snackbar.querySelector(".snackbar__button_reject");
 const snackbarSend = snackbar.querySelector(".snackbar__button_confirm");
 const snackbarClose = snackbar.querySelector(".snackbar__close-img");
-const cardButtons = document.querySelectorAll('.card__button');
 const finalPage = document.querySelector(".final-page");
 const finalPageBackButton = finalPage.querySelector(".final-page__back-btn");
 const finalPageExitButton = finalPage.querySelector(".final-page__button_back");
@@ -145,6 +144,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 </button>
               </div>
             `;
+            const cardButtons = document.querySelectorAll('.card__button');
             cardButtons.forEach((cardButton) => {
               cardButton.addEventListener("click", () => {
                 snackbar.classList.add("snackbar_active");
@@ -237,6 +237,7 @@ snackbarSend.addEventListener("click", () => {
                       </button>
                     </div>
                   `;
+                  const cardButtons = document.querySelectorAll('.card__button');
                   cardButtons.forEach((cardButton) => {
                     cardButton.addEventListener("click", () => {
                       snackbar.classList.add("snackbar_active");
