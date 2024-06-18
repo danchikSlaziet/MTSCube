@@ -237,6 +237,12 @@ snackbarSend.addEventListener("click", () => {
                       </button>
                     </div>
                   `;
+                  cardButtons.forEach((cardButton) => {
+                    cardButton.addEventListener("click", () => {
+                      snackbar.classList.add("snackbar_active");
+                      productId = cardButton.dataset.productId;
+                    })
+                  });
                 })
               })
               .catch(err => console.log(err));
