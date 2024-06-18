@@ -66,9 +66,9 @@ class Api {
 }
 
 const api = new Api({
-  firstUrl: 'http://152.89.218.81:7128/api/get_user_info/',
-  secondUrl: 'http://152.89.218.81:7128/api/get_product_list/',
-  thirdUrl: 'http://152.89.218.81:7128/api/book_product/',
+  firstUrl: 'https://mts.brandservicebot.ru/api/get_user_info/',
+  secondUrl: 'https://mts.brandservicebot.ru/api/get_product_list/',
+  thirdUrl: 'https://mts.brandservicebot.ru/api/book_product/',
 });
 
 
