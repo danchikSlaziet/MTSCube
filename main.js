@@ -148,13 +148,13 @@ document.addEventListener('DOMContentLoaded', () => {
                   </p>
                   <img class="card__price-img" src="./assets/images/card-count-img.svg" alt="">
                 </div>
-                <button data-product-id=${card.id} type="button" class="card__button">
+                <button data-price-id=${card.cost} data-product-id=${card.id} type="button" class="card__button">
                   Получить
                 </button>
               </div>
             `;
             document.querySelectorAll('.card__button').forEach((button) => {
-              if (button.dataset.productId === card.id && (userInfo.user_info.point < card.cost || card.count === 0)) {
+              if (button.dataset.productId == card.id && (userInfo.user_info.point < card.cost || card.count == 0)) {
                 button.classList.add("card__button_disable");
               }
             })
@@ -163,6 +163,7 @@ document.addEventListener('DOMContentLoaded', () => {
             cardButtons.forEach((cardButton) => {
               cardButton.addEventListener("click", () => {
                 snackbar.classList.add("snackbar_active");
+                snackbar.querySelector('.snackbar__warning').textContent = `Будет списано ${cardButton.dataset.priceId} баллов`;
                 productId = cardButton.dataset.productId;
               })
             });
@@ -246,13 +247,13 @@ snackbarSend.addEventListener("click", () => {
                         </p>
                         <img class="card__price-img" src="./assets/images/card-count-img.svg" alt="">
                       </div>
-                      <button data-product-id=${card.id} type="button" class=${getClass(userInfo.user_info.point < card.cost)}>
+                      <button data-price-id=${card.cost} data-product-id=${card.id} type="button" class=${getClass(userInfo.user_info.point < card.cost)}>
                         Получить
                       </button>
                     </div>
                   `;
                   document.querySelectorAll('.card__button').forEach((button) => {
-                    if (button.dataset.productId === card.id && (userInfo.user_info.point < card.cost || card.count === 0)) {
+                    if (button.dataset.productId == card.id && (userInfo.user_info.point < card.cost || card.count == 0)) {
                       button.classList.add("card__button_disable");
                     }
                   })
@@ -262,6 +263,7 @@ snackbarSend.addEventListener("click", () => {
                     cardButton.addEventListener("click", () => {
                       snackbar.classList.add("snackbar_active");
                       productId = cardButton.dataset.productId;
+                      snackbar.querySelector('.snackbar__warning').textContent = `Будет списано ${cardButton.dataset.priceId} баллов`;
                     })
                   });
               })
@@ -277,7 +279,7 @@ snackbarSend.addEventListener("click", () => {
           snackbarSend.style.pointerEvents = 'all';
           snackbarSend.disabled = false;
           snackbarSend.textContent = 'Подтвердить';
-        }, 5000);
+        }, 2500);
       }
       else if (data.status === 'Product out of stock') {
         snackbarSend.textContent = 'Этот товар раскуплен';
@@ -287,7 +289,7 @@ snackbarSend.addEventListener("click", () => {
           snackbarSend.style.pointerEvents = 'all';
           snackbarSend.disabled = false;
           snackbarSend.textContent = 'Подтвердить';
-        }, 5000);
+        }, 2500);
       }
       else {
         snackbarSend.textContent = 'Что-то пошло не так :(';
@@ -297,7 +299,7 @@ snackbarSend.addEventListener("click", () => {
           snackbarSend.style.pointerEvents = 'all';
           snackbarSend.disabled = false;
           snackbarSend.textContent = 'Подтвердить';
-        }, 5000);
+        }, 2500);
       }
     })
     .catch(err => console.log(err));
