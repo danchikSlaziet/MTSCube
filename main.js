@@ -105,6 +105,15 @@ const loader = document.querySelector(".loader");
 const loadingPage = document.querySelector(".loading-page");
 const summCount = document.querySelector(".summ__text");
 
+function getClass(bool) {
+  if (bool) {
+    return 'card__button';
+  }
+  else {
+    return 'card__button card__button_disable';
+  }
+}
+
 let userChatId;
 document.addEventListener('DOMContentLoaded', () => {
   setTimeout(() => {
@@ -139,19 +148,19 @@ document.addEventListener('DOMContentLoaded', () => {
                   </p>
                   <img class="card__price-img" src="./assets/images/card-count-img.svg" alt="">
                 </div>
-                <button data-product-id=${card.id} type="button" class=${userInfo.user_info.point < card.cost ? 'card__button card__button_disable' : 'card__button' }>
+                <button data-product-id=${card.id} type="button" class=${getClass(userInfo.user_info.point < card.cost)}>
                   Получить
                 </button>
               </div>
             `;
-            const cardButtons = document.querySelectorAll('.card__button');
+          });
+          const cardButtons = document.querySelectorAll('.card__button');
             cardButtons.forEach((cardButton) => {
               cardButton.addEventListener("click", () => {
                 snackbar.classList.add("snackbar_active");
                 productId = cardButton.dataset.productId;
               })
             });
-          })
         })
         .catch(err => console.log(err));
     })
@@ -232,19 +241,19 @@ snackbarSend.addEventListener("click", () => {
                         </p>
                         <img class="card__price-img" src="./assets/images/card-count-img.svg" alt="">
                       </div>
-                      <button data-product-id=${card.id} type="button" class=${userInfo.user_info.point < card.cost ? 'card__button card__button_disable' : 'card__button' }>
+                      <button data-product-id=${card.id} type="button" class=${getClass(userInfo.user_info.point < card.cost)}>
                         Получить
                       </button>
                     </div>
                   `;
-                  const cardButtons = document.querySelectorAll('.card__button');
+                });
+                const cardButtons = document.querySelectorAll('.card__button');
                   cardButtons.forEach((cardButton) => {
                     cardButton.addEventListener("click", () => {
                       snackbar.classList.add("snackbar_active");
                       productId = cardButton.dataset.productId;
                     })
                   });
-                })
               })
               .catch(err => console.log(err));
     })
