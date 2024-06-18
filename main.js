@@ -71,6 +71,7 @@ const api = new Api({
   thirdUrl: 'https://mts.brandservicebot.ru/api/book_product/',
 });
 
+let productId;
 
 // отмена закрытия по свайпу (если скролла нет, то работает отлично, когда скролл есть - закрывается при проведении буквой Г, например слева направо и вниз)
 const overflow = 100;
@@ -144,6 +145,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 </button>
               </div>
             `;
+            cardButtons.forEach((cardButton) => {
+              cardButton.addEventListener("click", () => {
+                snackbar.classList.add("snackbar_active");
+                productId = cardButton.dataset.productId;
+              })
+            });
           })
         })
         .catch(err => console.log(err));
@@ -167,13 +174,6 @@ function vibro() {
   }
 }
 
-let productId;
-cardButtons.forEach((cardButton) => {
-  cardButton.addEventListener("click", () => {
-    snackbar.classList.add("snackbar_active");
-    productId = cardButton.dataset.productId;
-  })
-});
 snackbarReject.addEventListener("click", () => {
   snackbar.classList.remove('snackbar_active');
 });
