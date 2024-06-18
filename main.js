@@ -148,11 +148,16 @@ document.addEventListener('DOMContentLoaded', () => {
                   </p>
                   <img class="card__price-img" src="./assets/images/card-count-img.svg" alt="">
                 </div>
-                <button data-product-id=${card.id} type="button" class=${getClass(userInfo.user_info.point < card.cost)}>
+                <button data-product-id=${card.id} type="button" class="card__button">
                   Получить
                 </button>
               </div>
             `;
+            document.querySelectorAll('.card__button').forEach((button) => {
+              if (button.dataset.productId === card.id && (userInfo.user_info.point < card.cost || card.count === 0)) {
+                button.classList.add("card__button_disable");
+              }
+            })
           });
           const cardButtons = document.querySelectorAll('.card__button');
             cardButtons.forEach((cardButton) => {
@@ -246,6 +251,11 @@ snackbarSend.addEventListener("click", () => {
                       </button>
                     </div>
                   `;
+                  document.querySelectorAll('.card__button').forEach((button) => {
+                    if (button.dataset.productId === card.id && (userInfo.user_info.point < card.cost || card.count === 0)) {
+                      button.classList.add("card__button_disable");
+                    }
+                  })
                 });
                 const cardButtons = document.querySelectorAll('.card__button');
                   cardButtons.forEach((cardButton) => {
