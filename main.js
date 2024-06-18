@@ -32,7 +32,7 @@ class Api {
   }
 
   getProducts() {
-    const url = this._secondUrl + '/';
+    const url = this._secondUrl;
     const options = {
       method: 'GET',
       mode: 'cors',
