@@ -121,7 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
   api.getUserInfo(192105252)
     .then((userInfo) => {
       console.log(userInfo);
-      summCount.textContent = userInfo.point;
+      summCount.textContent = userInfo.user_info.point;
       api.getProducts()
         .then((data) => {
           console.log(data);
@@ -131,7 +131,7 @@ document.addEventListener('DOMContentLoaded', () => {
               <div class="cards__card card">
                 <img src="./assets/images/card-img.png" class="card__img" alt="">
                 <p class="card__text">
-                  ${card.description}
+                  ${card.name}
                 </p>
                 <div class="card__price-block">
                   <p class="card__price-count">
@@ -139,7 +139,7 @@ document.addEventListener('DOMContentLoaded', () => {
                   </p>
                   <img class="card__price-img" src="./assets/images/card-count-img.svg" alt="">
                 </div>
-                <button data-product-id=${card.id} type="button" class=${userInfo.point < card.cost ? 'card__button card__button_disable' : 'card__button' }>
+                <button data-product-id=${card.id} type="button" class=${userInfo.user_info.point < card.cost ? 'card__button card__button_disable' : 'card__button' }>
                   Получить
                 </button>
               </div>
@@ -214,7 +214,7 @@ snackbarSend.addEventListener("click", () => {
         api.getUserInfo(192105252)
           .then((userInfo) => {
             console.log(userInfo);
-            summCount.textContent = userInfo.point;
+            summCount.textContent = userInfo.user_info.point;
             api.getProducts()
               .then((data) => {
                 console.log(data);
@@ -224,7 +224,7 @@ snackbarSend.addEventListener("click", () => {
                     <div class="cards__card card">
                       <img src="./assets/images/card-img.png" class="card__img" alt="">
                       <p class="card__text">
-                        ${card.description}
+                        ${card.name}
                       </p>
                       <div class="card__price-block">
                         <p class="card__price-count">
@@ -232,7 +232,7 @@ snackbarSend.addEventListener("click", () => {
                         </p>
                         <img class="card__price-img" src="./assets/images/card-count-img.svg" alt="">
                       </div>
-                      <button data-product-id=${card.id} type="button" class=${userInfo.point < card.cost ? 'card__button card__button_disable' : 'card__button' }>
+                      <button data-product-id=${card.id} type="button" class=${userInfo.user_info.point < card.cost ? 'card__button card__button_disable' : 'card__button' }>
                         Получить
                       </button>
                     </div>
