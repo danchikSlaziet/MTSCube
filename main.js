@@ -127,7 +127,7 @@ document.addEventListener('DOMContentLoaded', () => {
   app.expand();
   app.ready();
   userChatId = user_data["id"];
-  api.getUserInfo(192105252)
+  api.getUserInfo(userChatId)
     .then((userInfo) => {
       console.log(userInfo);
       summCount.textContent = userInfo.user_info.point;
@@ -210,7 +210,7 @@ snackbarSend.addEventListener("click", () => {
   snackbarSend.style.pointerEvents = 'none';
   snackbarSend.disabled = true;
   api.postProduct({
-    "user_id_tg": 192105252,
+    "user_id_tg": userChatId,
     "product_id": productId
   })
     .then((data) => {
@@ -226,7 +226,7 @@ snackbarSend.addEventListener("click", () => {
         }, 150);
         main.classList.add("main_disable");
         finalPage.classList.add("final-page_active");
-        api.getUserInfo(192105252)
+        api.getUserInfo(userChatId)
           .then((userInfo) => {
             console.log(userInfo);
             summCount.textContent = userInfo.user_info.point;
