@@ -67,7 +67,8 @@ a,a:hover{
   font-weight: 400;
   transition: visibility .25s, opacity .25s linear;
   background-image: url(./assets/images/loading-page-background.jpg);
-  background-size: 100% 100%;
+  background-size: cover;
+  background-position: center bottom;
 }
 .loading-page_disable {
   visibility: hidden;
@@ -537,7 +538,7 @@ a,a:hover{
 
 .loader {
   display: none;
-  overflow:hidden;
+  overflow: hidden;
   font-size: 10px;
   text-indent: -9999em;
   width: 20px;
