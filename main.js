@@ -117,8 +117,8 @@ function getClass(bool) {
 let userChatId;
 document.addEventListener('DOMContentLoaded', () => {
   setTimeout(() => {
-    loadingPage.classList.add('loading-page_disable');
-    main.classList.remove('main_disable');
+    // loadingPage.classList.add('loading-page_disable');
+    // main.classList.remove('main_disable');
   }, 2500)
   let app = window.Telegram.WebApp;
   let query = app.initData;
@@ -136,9 +136,10 @@ document.addEventListener('DOMContentLoaded', () => {
           console.log(data);
           cardsContainer.innerHTML = '';
           data.forEach((card) => {
+            const cardPath = card.path == null ? './assets/images/card-img.png' : `${card.path}`;
             cardsContainer.innerHTML += `
               <div class="cards__card card">
-                <img src="./assets/images/card-img.png" class="card__img" alt="">
+                <img src=${cardPath} class="card__img" alt="">
                 <p class="card__text">
                   ${card.name}
                 </p>
