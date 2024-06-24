@@ -282,6 +282,8 @@ a,a:hover{
   border-radius: 10px;
   display: block;
   margin-bottom: 5px;
+  object-fit: cover;
+  object-position: center center;
 }
 .card__text {
   color: #000;
