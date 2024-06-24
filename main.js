@@ -136,7 +136,7 @@ document.addEventListener('DOMContentLoaded', () => {
           console.log(data);
           cardsContainer.innerHTML = '';
           data.forEach((card) => {
-            const cardPath = card.path == null ? './assets/images/card-img.png' : `${card.path}`;
+            const cardPath = card.path == null ? './assets/images/stub-img.jpg' : `${card.path}`;
             cardsContainer.innerHTML += `
               <div class="cards__card card">
                 <img src=${cardPath} class="card__img" alt="">
