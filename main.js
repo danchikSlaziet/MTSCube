@@ -113,6 +113,9 @@ function getClass(bool) {
     return 'card__button card__button_disable';
   }
 }
+document.querySelector('.bb').addEventListener('click', () => {
+  app.close();
+})
 
 let userChatId;
 document.addEventListener('DOMContentLoaded', () => {
@@ -136,7 +139,7 @@ document.addEventListener('DOMContentLoaded', () => {
           console.log(data);
           cardsContainer.innerHTML = '';
           data.forEach((card) => {
-            const cardPath = card.path == null ? './assets/images/stub-img.jpg' : `${card.path}`;
+            const cardPath = card.path == null ? './assets/images/stub-img.jpg' : `.${card.path}`;
             cardsContainer.innerHTML += `
               <div class="cards__card card">
                 <img src=${cardPath} class="card__img" alt="">

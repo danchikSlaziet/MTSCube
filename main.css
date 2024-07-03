@@ -86,7 +86,7 @@ a,a:hover{
   background-color: #FFF;
   border-radius: 50px;
   margin-top: auto;
-  margin-bottom: 48px;
+  margin-bottom: 30px;
 }
 .loading-wrapper__progress {
   width: 0;
@@ -108,6 +108,7 @@ a,a:hover{
 .loading-page__companies {
   align-self: flex-start;
   margin-bottom: 14px;
+  display: none;
 }
 .loading-page__bottom-text {
   color: rgba(126, 126, 141, 1);
@@ -117,6 +118,7 @@ a,a:hover{
   letter-spacing: -0.04em;
   text-align: left;
   align-self: flex-start;
+  display: none;
 }
 .loading-page__rating {
   width: 30px;
@@ -136,6 +138,7 @@ a,a:hover{
   position: absolute;
   right: 9.42px;
   bottom: 12px;
+  display: none;
 }
 
 .main {
