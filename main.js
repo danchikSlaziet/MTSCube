@@ -113,9 +113,6 @@ function getClass(bool) {
     return 'card__button card__button_disable';
   }
 }
-document.querySelector('.bb').addEventListener('click', () => {
-  app.close();
-})
 
 let userChatId;
 document.addEventListener('DOMContentLoaded', () => {
