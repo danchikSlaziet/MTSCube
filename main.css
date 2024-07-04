@@ -68,7 +68,7 @@ a,a:hover{
   transition: visibility .25s, opacity .25s linear;
   background-image: url(./assets/images/loading-page-background.jpg);
   background-size: cover;
-  background-position: center bottom;
+  background-position: center center;
 }
 .loading-page_disable {
   visibility: hidden;
