@@ -82,16 +82,6 @@ document.body.style.paddingBottom = `${overflow}px`;
 window.scrollTo(0, overflow);
 // отмена закрытия по свайпу
 
-function parseQuery(queryString) {
-  let query = {};
-  let pairs = (queryString[0] === '?' ? queryString.substr(1) : queryString).split('&');
-  for (let i = 0; i < pairs.length; i++) {
-      let pair = pairs[i].split('=');
-      query[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1] || '');
-  }
-  return query;
-}
-
 const main = document.querySelector('.main');
 const cardsContainer = main.querySelector(".cards__content");
 const snackbar = document.querySelector('.snackbar');
@@ -112,6 +102,16 @@ function getClass(bool) {
   else {
     return 'card__button card__button_disable';
   }
+}
+
+function parseQuery(queryString) {
+  let query = {};
+  let pairs = (queryString[0] === '?' ? queryString.substr(1) : queryString).split('&');
+  for (let i = 0; i < pairs.length; i++) {
+      let pair = pairs[i].split('=');
+      query[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1] || '');
+  }
+  return query;
 }
 
 let userChatId;
@@ -157,6 +157,10 @@ document.addEventListener('DOMContentLoaded', () => {
             document.querySelectorAll('.card__button').forEach((button) => {
               if (button.dataset.productId == card.id && (userInfo.user_info.point < card.cost || card.count == 0)) {
                 button.classList.add("card__button_disable");
+                if (card.count == 0) {
+                  button.textContent = 'Нет в наличии';
+                  button.style = 'color: rgba(187, 187, 187, 1);border: 1px solid rgba(187, 187, 187, 1);';
+                }
               }
             })
           });
