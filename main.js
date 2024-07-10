@@ -114,6 +114,7 @@ function parseQuery(queryString) {
   return query;
 }
 
+
 let userChatId;
 document.addEventListener('DOMContentLoaded', () => {
   setTimeout(() => {
@@ -135,6 +136,17 @@ document.addEventListener('DOMContentLoaded', () => {
         .then((data) => {
           console.log(data);
           cardsContainer.innerHTML = '';
+          data.sort((a, b) => {
+            if (a.count === 0 && b.count === 0) {
+              return 0;
+            } else if (a.count === 0) {
+              return 1;
+            } else if (b.count === 0) {
+              return -1;
+            } else {
+              return a.cost - b.cost;
+            }
+          });
           data.forEach((card) => {
             const cardPath = card.path == null ? './assets/images/stub-img.jpg' : `.${card.path}`;
             cardsContainer.innerHTML += `
@@ -177,6 +189,9 @@ document.addEventListener('DOMContentLoaded', () => {
     })
     .catch(err => console.log(err));
 });
+
+
+
 
 function vibro() {
   let detect = new MobileDetect(window.navigator.userAgent);
